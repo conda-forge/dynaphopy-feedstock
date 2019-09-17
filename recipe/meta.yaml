@@ -10,7 +10,6 @@ source:
   sha256: 9c8526b19d6afe5e27b205f01e1f8f5731a96a33e4b4829d3eb91cb8a841d416
   patches: 
     - compiler.patch
-    - phonopy.patch
 
 build:
   number: 0
