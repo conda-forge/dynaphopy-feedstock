@@ -1,5 +1,5 @@
 {% set name = "dynaphopy" %}
-{% set version = "1.16.5" %}
+{% set version = "1.16.6" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ee33ca9b2dc755507fe4c479a937469666d6a83abfce0caaa65ceadebb405485
+  sha256: 9c8526b19d6afe5e27b205f01e1f8f5731a96a33e4b4829d3eb91cb8a841d416
   patches: 
     - compiler.patch
     - phonopy.patch
 
 build:
-  number: 1
+  number: 0
   script: "{{ PYTHON }} -m pip install . -vv"
   skip: true  # [win or py<37]
 
