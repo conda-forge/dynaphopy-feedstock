@@ -33,6 +33,8 @@ requirements:
 test:
   imports:
     - dynaphopy
+  commands:
+    - pip check
 
 about:
   home: http://abelcarreras.github.io/DynaPhoPy/
