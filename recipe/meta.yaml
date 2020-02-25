@@ -25,6 +25,7 @@ requirements:
     - numpy
   run:
     - python
+    - pip
     - phonopy
     - {{ pin_compatible('numpy') }}
     - scipy
