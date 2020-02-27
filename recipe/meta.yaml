@@ -25,6 +25,7 @@ requirements:
     - numpy
   run:
     - python
+    - pip
     - phonopy
     - {{ pin_compatible('numpy') }}
     - scipy
@@ -33,6 +34,8 @@ requirements:
 test:
   imports:
     - dynaphopy
+  commands:
+    - pip check
 
 about:
   home: http://abelcarreras.github.io/DynaPhoPy/
