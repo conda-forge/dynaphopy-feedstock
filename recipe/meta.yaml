@@ -1,5 +1,5 @@
 {% set name = "dynaphopy" %}
-{% set version = "1.16.8" %}
+{% set version = "1.17.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c487480790d4d943bd0f8f7c558ac5926e5ede301d502600eb4a265f429a6c85
-  patches: 
+  sha256: 23bb4c0d84aba6bd3a309706a7c983b65167d683f6c8a7e512c2763fb81f44bd
+  patches:
     - compiler.patch
 
 build:
-  number: 1
-  script: "{{ PYTHON }} -m pip install . -vv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<37]
 
 requirements:
@@ -42,7 +42,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'Phonon Analysis from Molecular Dynamics Data'
+  summary: Phonon Analysis from Molecular Dynamics Data
 
   description: |
     Software to calculate crystal microscopic anharmonic properties 
