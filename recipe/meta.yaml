@@ -1,5 +1,5 @@
 {% set name = "dynaphopy" %}
-{% set version = "1.17.8" %}
+{% set version = "1.17.9" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: edbcbc92a89314a33ad7f4c815c2576d68a43df09ab3d865c226ab73e985fa7d
+  sha256: 30afe1dc0f607cd6c7e980b0caeaa2da1e2b404c12fb7a6c8053087cb529fa4a
   patches:
     - compiler.patch
 
