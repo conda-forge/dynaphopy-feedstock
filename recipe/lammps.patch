@@ -1,8 +1,9 @@
-From aaed4d93b59aacd677d98b5ae790376a43db7df3 Mon Sep 17 00:00:00 2001
+From 01349274f450f79eb25334c5889883b8b0ed0899 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jan=20Jan=C3=9Fen?= <janssen@mpie.de>
 Date: Fri, 22 Oct 2021 13:41:33 -0600
 Subject: [PATCH] Lammps compatibility
 
+(cherry picked from commit aaed4d93b59aacd677d98b5ae790376a43db7df3)
 ---
  dynaphopy/interface/lammps_link.py | 18 +++++++++---------
  1 file changed, 9 insertions(+), 9 deletions(-)
