@@ -10,9 +10,10 @@ source:
   sha256: 4c743902022421e0de9d50aa1e5d86a2d2c9870289aaa714c3a44bad9e901189
   patches:
     - compiler.patch
+    - lammps.patch
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<37]
 
