@@ -10,6 +10,7 @@ source:
   sha256: 8e5b8f6d05c14aded6921ba9840130bf4d1ac53b03e8648a1ec7a4448cc1c1d0
   patches:
     - compiler.patch
+    - setup.patch
 
 build:
   number: 0
