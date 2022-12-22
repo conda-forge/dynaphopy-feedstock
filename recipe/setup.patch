@@ -15,7 +15,7 @@ index a5c2699..ac8bd5c 100644
                 'scripts/fitdata',
                 'scripts/qha_extract',
                 'scripts/rfc_calc'],
--      install_requires=['phonopy', 'numpy', 'scipy', 'matplotlib'] + ["windows-curses"] if "win" in sys.platform else [],
+-      install_requires=['phonopy', 'numpy', 'scipy', 'matplotlib'] + ["windows-curses"] if sys.platform in ["win32", "cygwin"] else [],
 +      install_requires=['phonopy', 'numpy', 'scipy', 'matplotlib'],
        license='MIT License',
        long_description=open('README.md').read(),
