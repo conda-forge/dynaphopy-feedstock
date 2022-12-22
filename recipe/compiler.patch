@@ -5,11 +5,11 @@ author: Jan Janssen (MPIE)
  setup.py | 7 +-
  1 file changed, 3 insertion(+), 4 deletion(-)
 
-diff --git a/setup.py b/etup.py
+diff --git a/setup.py b/setup.py
 index 0849e03d..a366828d 100644
 --- setup.py	(date 1568712669000)
 +++ setup.py	(date 1568722198133)
-@@ -13,11 +13,10 @@
+@@ -14,11 +14,10 @@
  
  
  def check_compiler():
