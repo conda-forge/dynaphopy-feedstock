@@ -12,7 +12,7 @@ source:
     - setup.patch
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<37]
 
@@ -31,7 +31,6 @@ requirements:
     - python
     - pip
     - phonopy
-    - {{ pin_compatible('numpy') }}
     - scipy
     - matplotlib-base
 
