@@ -10,9 +10,10 @@ source:
   sha256: bb69c0faf3f7e7ce3f9d22f386bc978cf22b85a24b8353d8d67594a85e540f1b
   patches:
     - setup.patch
+    - phonopy.patch
 
 build:
-  number: 2
+  number: 3
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<37]
 
