@@ -1,6 +1,6 @@
-From f67938dab898ec8b6ee7e155c30508ccc17a8c94 Mon Sep 17 00:00:00 2001
-From: Jan Janssen <janssen@mpie.de>
-Date: Wed, 13 Aug 2025 15:29:58 +0200
+From 6c3553fd8281637dd67f59ba03a69c2d3be5fbc3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Jan=C3=9Fen?= <janssen@mpie.de>
+Date: Sat, 3 Jan 2026 22:09:07 +0100
 Subject: [PATCH] Patch phonopy compatibility
 
 ---
@@ -8,10 +8,10 @@ Subject: [PATCH] Patch phonopy compatibility
  1 file changed, 10 insertions(+), 18 deletions(-)
 
 diff --git a/dynaphopy/interface/phonopy_link.py b/dynaphopy/interface/phonopy_link.py
-index 63763cf..c2bed8d 100644
+index 5884625..ec2e6a2 100644
 --- a/dynaphopy/interface/phonopy_link.py
 +++ b/dynaphopy/interface/phonopy_link.py
-@@ -99,11 +99,11 @@ def get_phonon(structure, NAC=False, setup_forces=True, custom_supercell=None, s
+@@ -135,11 +135,11 @@ def get_phonon(structure, NAC=False, setup_forces=True, custom_supercell=None, s
  
      if setup_forces:
          if structure.get_force_constants() is not None:
@@ -25,7 +25,7 @@ index 63763cf..c2bed8d 100644
                                                           supercell=structure.get_force_sets().get_supercell()))
          else:
              print('No force sets/constants available!')
-@@ -160,7 +160,7 @@ def obtain_phonopy_dos(structure, mesh=(40, 40, 40), force_constants=None,
+@@ -196,7 +196,7 @@ def obtain_phonopy_dos(structure, mesh=(40, 40, 40), force_constants=None,
                              setup_forces=False,
                              custom_supercell=force_constants.get_supercell(),
                              NAC=NAC)
@@ -34,7 +34,7 @@ index 63763cf..c2bed8d 100644
  
      if projected_on_atom < 0:
          phonon.run_mesh(mesh)
-@@ -197,7 +197,7 @@ def obtain_phonopy_thermal_properties(structure, temperature, mesh=(40, 40, 40),
+@@ -233,7 +233,7 @@ def obtain_phonopy_thermal_properties(structure, temperature, mesh=(40, 40, 40),
                              setup_forces=False,
                              custom_supercell=force_constants.get_supercell(),
                              NAC=NAC)
@@ -43,7 +43,7 @@ index 63763cf..c2bed8d 100644
  
      phonon.run_mesh(mesh)
      phonon.run_thermal_properties(t_step=1, t_min=temperature, t_max=temperature)
-@@ -228,7 +228,7 @@ def obtain_phonopy_group_velocity(structure, q_point, force_constants=None, NAC=
+@@ -264,7 +264,7 @@ def obtain_phonopy_group_velocity(structure, q_point, force_constants=None, NAC=
                              setup_forces=False,
                              custom_supercell=force_constants.get_supercell(),
                              NAC=NAC)
@@ -52,7 +52,7 @@ index 63763cf..c2bed8d 100644
  
      return phonon.get_group_velocity_at_q(q_point)
  
-@@ -239,7 +239,7 @@ def obtain_phonopy_mesh_from_force_constants(structure, force_constants, mesh=(4
+@@ -275,7 +275,7 @@ def obtain_phonopy_mesh_from_force_constants(structure, force_constants, mesh=(4
                          setup_forces=False,
                          custom_supercell=force_constants.get_supercell(),
                          NAC=NAC)
@@ -61,7 +61,7 @@ index 63763cf..c2bed8d 100644
  
      phonon.run_mesh(mesh)
      mesh_dict = phonon.get_mesh_dict()
-@@ -255,7 +255,7 @@ def obtain_phonon_dispersion_bands(structure, bands_ranges, force_constants=None
+@@ -291,7 +291,7 @@ def obtain_phonon_dispersion_bands(structure, bands_ranges, force_constants=None
          phonon = get_phonon(structure, NAC=NAC, setup_forces=False,
                              custom_supercell=force_constants.get_supercell())
  
@@ -70,7 +70,7 @@ index 63763cf..c2bed8d 100644
      else:
          # print('Getting phonon dispersion relations')
          phonon = get_phonon(structure, NAC=NAC)
-@@ -279,11 +279,7 @@ def obtain_phonon_dispersion_bands(structure, bands_ranges, force_constants=None
+@@ -315,11 +315,7 @@ def obtain_phonon_dispersion_bands(structure, bands_ranges, force_constants=None
  def get_commensurate_points(structure, fc_supercell):
  
      phonon = get_phonon(structure, setup_forces=False, custom_supercell=fc_supercell)
@@ -83,7 +83,16 @@ index 63763cf..c2bed8d 100644
      com_points = dynmat2fc.get_commensurate_points()
  
      return com_points
-@@ -312,11 +308,7 @@ def get_equivalent_q_points_by_symmetry(q_point, structure, symprec=1e-5):
+@@ -335,7 +331,7 @@ def get_equivalent_q_points_by_symmetry(q_point, structure, symprec=None):
+                         cell=structure.get_cell())
+ 
+     tot_points = [list(q_point)]
+-    for operation_matrix in Symmetry(bulk, symprec=symprec).get_reciprocal_operations():
++    for operation_matrix in Symmetry(bulk, symprec=symprec).reciprocal_operations:
+         operation_matrix_q = np.dot(np.linalg.inv(structure.get_primitive_matrix()), operation_matrix.T)
+         operation_matrix_q = np.dot(operation_matrix_q, structure.get_primitive_matrix())
+ 
+@@ -351,11 +347,7 @@ def get_equivalent_q_points_by_symmetry(q_point, structure, symprec=None):
  def get_renormalized_force_constants(renormalized_frequencies, eigenvectors, structure, fc_supercell, symmetrize=False):
  
      phonon = get_phonon(structure, setup_forces=False, custom_supercell=fc_supercell)
@@ -95,13 +104,4 @@ index 63763cf..c2bed8d 100644
 +    dynmat2fc = DynmatToForceConstants(phonon.primitive, phonon.supercell)
  
      size = structure.get_number_of_dimensions() * structure.get_number_of_primitive_atoms()
-     eigenvectors = np.array([eigenvector.reshape(size, size, order='C').T for eigenvector in eigenvectors ])
-@@ -335,7 +335,7 @@ def get_equivalent_q_points_by_symmetry(q_point, structure, symprec=None):
-                         cell=structure.get_cell())
- 
-     tot_points = [list(q_point)]
--    for operation_matrix in Symmetry(bulk, symprec=symprec).get_reciprocal_operations():
-+    for operation_matrix in Symmetry(bulk, symprec=symprec).reciprocal_operations:
-         operation_matrix_q = np.dot(np.linalg.inv(structure.get_primitive_matrix()), operation_matrix.T)
-         operation_matrix_q = np.dot(operation_matrix_q, structure.get_primitive_matrix())
- 
+     eigenvectors = np.array([eigenvector.reshape(size, size, order='C').T for eigenvector in eigenvectors])
