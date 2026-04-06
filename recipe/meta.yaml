@@ -35,6 +35,7 @@ requirements:
     - phonopy
     - scipy
     - matplotlib-base
+    - seekpath
 
 test:
   imports:
