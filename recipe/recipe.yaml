@@ -1,0 +1,70 @@
+schema_version: 1
+
+context:
+  name: dynaphopy
+  version: "1.19.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
+  sha256: bba34b6a4c28dc82935718a98956b077ecd72754f3f68828e9510f5017c8a8ac
+  patches:
+    - setup.patch
+    - phonopy.patch
+
+build:
+  number: 1
+  skip: win or match(python, "<3.11")
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: numpy
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+  host:
+    - python
+    - pip
+    - numpy
+    - setuptools
+  run:
+    - python
+    - pip
+    - phonopy
+    - scipy
+    - matplotlib-base
+    - seekpath
+
+tests:
+  - python:
+      imports:
+        - dynaphopy
+      pip_check: true
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: Phonon Analysis from Molecular Dynamics Data
+  description: |
+    Software to calculate crystal microscopic anharmonic properties
+    from molecular dynamics (MD) using the normal-mode-decomposition
+    technique. These properties include the phonon frequency shifts and
+    linewidths, as well as the renormalized force constanst and thermal
+    properties by using quasiparticle theory. This code includes
+    interfaces for MD outputs from VASP and LAMMPS. PHONOPY code is used
+    to obtain harmonic phonon modes.
+  homepage: http://abelcarreras.github.io/DynaPhoPy/
+  repository: https://github.com/abelcarreras/DynaPhoPy
+  documentation: http://abelcarreras.github.io/DynaPhoPy/
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
